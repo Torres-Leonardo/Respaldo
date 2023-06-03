@@ -1,0 +1,14 @@
+@charset "ISO-8859-1";
+
+.title{
+text-align: center;
+}
+
+.form{
+  display: flex;
+  justify-content: center;
+}
+
+.button{
+  text-align: center;
+}
