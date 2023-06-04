@@ -6,7 +6,7 @@ public class EliminarUsers {
 	public static void main(String[] args) {
 		try {
 			// Datos
-			String id = "2";
+			String id = "4";
 			// Proceso
 			users usuario = new users();
 			usuario.delete(id);

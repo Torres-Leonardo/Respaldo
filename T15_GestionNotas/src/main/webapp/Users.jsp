@@ -10,7 +10,7 @@
 	rel="stylesheet"
 	integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
 	crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="Estudiante.css">
+<link rel="stylesheet" type="text/css" href="Users.css">
 <meta charset="UTF-8">
 <title>I.E.P. Santa Rita de Cassia</title>
 </head>
@@ -34,7 +34,7 @@
 			</div>
 		</div>
 	</nav>
-	<h1 class="title">LISTADO DE ALUMNA</h1>
+	<h1 class="title">LISTADO DE USUARIO</h1>
 	<br>
 	<div class="card">
 		<div class="card-header">Criterios de busqueda</div>
@@ -75,13 +75,14 @@
 						<th>Apellidos</th>
 						<th>Tipo de documento</th>
 						<th>N° de documento</th>
+						<th>Tipo de Usuario</th>
+						<th>Activo</th>
 						<th>Email</th>
 						<th>Celular</th>
-						<th>Activo</th>
 						<th>Acciones</th>
 					</tr>
 				</thead>
-				<tbody id="detalleStudent" class="detalleStudent">
+				<tbody id="detalleUsers" class="detalleUsers">
 
 					<tr>
 						<td>${r.id}</td>
@@ -89,9 +90,10 @@
 						<td>${r.last_name}</td>
 						<td>${r.type_document}</td>
 						<td>${r.number_document}</td>
+						<td>${r.type_user}</td>
+						<td>${r.activate}</td>
 						<td>${r.email}</td>
 						<td>${r.cell_phone}</td>
-						<td>${r.activate}</td>
 					</tr>
 
 				</tbody>
@@ -102,8 +104,7 @@
 	<!-- Formulario de edición de registro -->
 
 	<div class="card" id="divRegistro" style="display: none;">
-		<div class="card-header" id="TituloDeRegistro">{accion}
-			ESTUDIANTE</div>
+		<div class="card-header" id="TituloDeRegistro">{accion} USUARIO</div>
 		<div class="card-body">
 			<form>
 
@@ -145,6 +146,14 @@
 					</div>
 				</div>
 				<div class="row mb-3">
+					<label for="formTipousers" class="col-sm-2 col-form-label">Tipo
+						de Usuario</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" maxlength="15"
+							id="formTipousers">
+					</div>
+				</div>
+				<div class="row mb-3">
 					<label for="formEmail" class="col-sm-2 col-form-label">Email</label>
 					<div class="col-sm-10">
 						<input type="email" class="form-control" id="formEmail">
@@ -182,10 +191,10 @@
 		const ACCION_NUEVO = "NUEVO";
 		const ACCION_EDITAR = "EDITAR";
 		const ACCION_ELIMINAR = "ELIMINAR";
-		
+
 		//Arreglo de registros
 		let arreglo = [];
-		
+
 		// Acceder a los controles
 		let btnBuscar = document.getElementById("btnBuscar");
 		let btnNuevo = document.getElementById("btnNuevo");
@@ -225,24 +234,26 @@
 
 		//Función Procesar
 		function fnBtnProcesar() {
-			let datos = "accion=" + document.getElementById("accion").value;
-			datos += "&id=" + document.getElementById("formId").value;
-			datos += "&names=" + document.getElementById("formNombre").value;
-			datos += "&last_name="
+			let datos2 = "accion=" + document.getElementById("accion").value;
+			datos2 += "&id=" + document.getElementById("formId").value;
+			datos2 += "&names=" + document.getElementById("formNombre").value;
+			datos2 += "&last_name="
 					+ document.getElementById("formApellidos").value;
-			datos += "&type_document="
+			datos2 += "&type_document="
 					+ document.getElementById("formTipoDeDocumento").value;
-			datos += "&number_document="
+			datos2 += "&type_user="
+					+ document.getElementById("formTipousers").value;
+			datos2 += "&number_document="
 					+ document.getElementById("formNumeroDeDocumento").value;
-			datos += "&email=" + document.getElementById("formEmail").value;
-			datos += "&cell_phone="
+			datos2 += "&email=" + document.getElementById("formEmail").value;
+			datos2 += "&cell_phone="
 					+ document.getElementById("formCelular").value;
-			datos += "&activate=" + document.getElementById("formActivo").value;
+			datos2 += "&activate=" + document.getElementById("formActivo").value;
 
 			//Formulario
 			// El envio con AJAX
 			let xhr = new XMLHttpRequest();
-			xhr.open("POST", "StudentProcesar", true);
+			xhr.open("POST", "UsersProcesar", true);
 			xhr.setRequestHeader('Content-type',
 					'application/x-www-form-urlencoded');
 			xhr.onreadystatechange = function() {
@@ -252,7 +263,7 @@
 					alert(xhr.responseText);
 				}
 			};
-			xhr.send(datos);
+			xhr.send(datos2);
 		}
 
 		// Función fnBtnNuevo
@@ -271,8 +282,7 @@
 			let last_name = document.getElementById("last_name").value;
 			let names = document.getElementById("names").value;
 			// Preparar la URL
-			let url = "StudentBuscar2?last_name=" + last_name + "&names="
-					+ names;
+			let url = "UsersBuscar2?last_name=" + last_name + "&names=" + names;
 			// La llama AJAX
 			let xhttp = new XMLHttpRequest();
 			xhttp.open("GET", url, true);
@@ -280,30 +290,34 @@
 				if (this.readyState == 4 && this.status == 200) {
 					let respuesta = xhttp.responseText;
 					arreglo = JSON.parse(respuesta);
-					let detalleStudent = "";
+					let detalleUsers = "";
 					arreglo
 							.forEach(function(item) {
-								detalleStudent += "<tr>";
-								detalleStudent += "<td>" + item.id + "</td>";
-								detalleStudent += "<td>" + item.names + "</td>";
-								detalleStudent += "<td>" + item.last_name
+								detalleUsers += "<tr>";
+								detalleUsers += "<td>" + item.id + "</td>";
+								detalleUsers += "<td>" + item.names + "</td>";
+								detalleUsers += "<td>" + item.last_name
 										+ "</td>";
-								detalleStudent += "<td>" + item.type_document
+								detalleUsers += "<td>" + item.type_document
 										+ "</td>";
-								detalleStudent += "<td>" + item.number_document
+								detalleUsers += "<td>" + item.number_document
 										+ "</td>";
-								detalleStudent += "<td>" + item.email + "</td>";
-								detalleStudent += "<td>" + item.cell_phone
+								detalleUsers += "<td>" + item.type_user
 										+ "</td>";
-								detalleStudent += "<td>" + item.activate
+								detalleUsers += "<td>" + item.email + "</td>";
+								detalleUsers += "<td>" + item.cell_phone
 										+ "</td>";
-								detalleStudent += "<td>";
-								detalleStudent += "<A href='javascript: fnEditar(" + item.id + ")'>Editar</A>  ";
-								detalleStudent += "<A href='javascript: fnEliminar(" + item.id + ")'>Eliminar</A>";
-								detalleStudent + "</td>";
-								detalleStudent += "</tr>";
+								detalleUsers += "<td>" + item.activate
+										+ "</td>";
+								detalleUsers += "<td>";
+								detalleUsers += "<A href='javascript: fnEditar("
+										+ item.id + ")'>Editar</A>  ";
+								detalleUsers += "<A href='javascript: fnEliminar("
+										+ item.id + ")'>Eliminar</A>";
+								detalleUsers + "</td>";
+								detalleUsers += "</tr>";
 							});
-					document.getElementById("detalleStudent").innerHTML = detalleStudent;
+					document.getElementById("detalleUsers").innerHTML = detalleUsers;
 					//Mostar formulario
 					document.getElementById("divResultado").style.display = "block"
 					document.getElementById("divRegistro").style.display = "none"
@@ -313,29 +327,32 @@
 		}
 		// Función fnBtnDescargar
 		function fnBtnDescargar() {
-		    let tabla = document.getElementById("detalleStudent");
-		    let html = tabla.outerHTML;
-		    let url = 'data:text/html;charset=UTF-8,' + encodeURIComponent(html);
-		    let a = document.createElement('a');
-		    a.href = url;
-		    a.download = 'lista_alumnos.pdf';
-		    a.click();
+			let tabla = document.getElementById("detalleUsers");
+			let html = tabla.outerHTML;
+			let url = 'data:text/html;charset=UTF-8,'
+					+ encodeURIComponent(html);
+			let a = document.createElement('a');
+			a.href = url;
+			a.download = 'lista_alumnos.pdf';
+			a.click();
 		}
-		
-		function fnCargarForm(id){
-			arreglo.forEach(function(item) {
-				if (item.id == id){
-					document.getElementById("formId").value = item.id;
-					document.getElementById("formNombre").value = item.names;
-					document.getElementById("formApellidos").value = item.last_name;
-					document.getElementById("formTipoDeDocumento").value = item.type_document;
-					document.getElementById("formNumeroDeDocumento").value = item.number_document;
-					document.getElementById("formEmail").value = item.email;
-					document.getElementById("formCelular").value = item.cell_phone;
-					document.getElementById("formActivo").value = item.activate;
-					//break;
-				}
-			});
+
+		function fnCargarForm(id) {
+			arreglo
+					.forEach(function(item) {
+						if (item.id == id) {
+							document.getElementById("formId").value = item.id;
+							document.getElementById("formNombre").value = item.names;
+							document.getElementById("formApellidos").value = item.last_name;
+							document.getElementById("formTipoDeDocumento").value = item.type_document;
+							document.getElementById("formNumeroDeDocumento").value = item.number_document;
+							document.getElementById("formTipousers").value = item.type_user;
+							document.getElementById("formEmail").value = item.email;
+							document.getElementById("formCelular").value = item.cell_phone;
+							document.getElementById("formActivo").value = item.activate;
+							//break;
+						}
+					});
 		}
 	</script>
 </body>

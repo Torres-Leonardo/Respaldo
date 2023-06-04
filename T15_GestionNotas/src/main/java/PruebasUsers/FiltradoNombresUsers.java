@@ -10,7 +10,7 @@ public class FiltradoNombresUsers {
 		try {
 			// Datos
 			ModeloUsers bean = new ModeloUsers();
-			bean.setNames("  LEONARDITO ");
+			bean.setNames("  miguel ");
 			// Proceso
 			users user = new users();
 			List<ModeloUsers> lista = user.get(bean);

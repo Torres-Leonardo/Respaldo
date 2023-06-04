@@ -7,7 +7,7 @@ public class ModificarUsers {
 	public static void main(String[] args) {
 		try {
 			// Datos
-			ModeloUsers bean = new ModeloUsers(14,"CNE","897656789","A","LEONARDITO","SANCHEZ","CARLOS@gmail.com","987676567","A");
+			ModeloUsers bean = new ModeloUsers(4,"CNE","897656789","A","LEONARDITO","SANCHEZ","CARLOS@gmail.com","987676567","A");
 			// Proceso
 			users usuario = new users();
 			usuario.update(bean);

@@ -14,16 +14,16 @@ import Plantilla.CRUD.CrudServiceSpec;
 
 public class users implements CrudServiceSpec<ModeloUsers>, RowMapper2<ModeloUsers> {
 
-	private final String SQL_SELECT_BASE = "SELECT identifier, type_document, number_document, type_user, names, last_name, email, cell_phone, activate  FROM users";
-	private final String SQL_INSERT = "INSERT INTO users(identifier, type_document, number_document, type_user, names, last_name, email, cell_phone, activate) VALUES(?,?,?,?,?,?,?,?,?)";
-	private final String SQL_UPDATE = "UPDATE users SET  type_document=?, number_document=?, type_user=?, names=?, last_name=?, email=?, cell_phone=?, activate=? WHERE identifier=?";
-	private final String SQL_DELETE = "DELETE FROM users WHERE identifier=?";
+	private final String SQL_SELECT_BASE = "SELECT id, type_document, number_document, type_user, names, last_name, email, cell_phone, activate  FROM users";
+	private final String SQL_INSERT = "INSERT INTO users(id, type_document, number_document, type_user, names, last_name, email, cell_phone, activate) VALUES(?,?,?,?,?,?,?,?,?)";
+	private final String SQL_UPDATE = "UPDATE users SET  type_document=?, number_document=?, type_user=?, names=?, last_name=?, email=?, cell_phone=?, activate=? WHERE id=?";
+	private final String SQL_DELETE = "DELETE FROM users WHERE id=?";
 
 	@Override
 	public ModeloUsers mapRow(ResultSet rs) throws SQLException {
 		// TODO Auto-generated method stub
 		ModeloUsers bean = new ModeloUsers();
-		bean.setIdentifier(rs.getInt("identifier"));
+		bean.setId(rs.getInt("id"));
 		bean.setType_document(rs.getString("type_document"));
 		bean.setNumber_document(rs.getString("number_document"));
 		bean.setType_user(rs.getString("type_user"));
@@ -83,7 +83,7 @@ public class users implements CrudServiceSpec<ModeloUsers>, RowMapper2<ModeloUse
 		// Proceso
 		try {
 			cn = AccesoDB.getConnection();
-			sql = SQL_SELECT_BASE + " WHERE Identifier=?";
+			sql = SQL_SELECT_BASE + " WHERE id=?";
 			pstm = cn.prepareStatement(sql);
 			pstm.setInt(1, Integer.parseInt(id));
 			rs = pstm.executeQuery();
@@ -237,7 +237,7 @@ public class users implements CrudServiceSpec<ModeloUsers>, RowMapper2<ModeloUse
 			pstm.setString(6, bean.getEmail());
 			pstm.setString(7, bean.getCell_phone());
 			pstm.setString(8, bean.getActivate());
-			pstm.setInt(9, bean.getIdentifier());
+			pstm.setInt(9, bean.getId());
 			filas = pstm.executeUpdate();
 			pstm.close();
 			if (filas != 1) {
