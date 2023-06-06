@@ -140,7 +140,7 @@
 					<label for="formNumeroDeDocumento" class="col-sm-2 col-form-label">N°
 						de Documento</label>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" maxlength="9"
+						<input type="text" class="form-control" maxlength="15"
 							id="formNumeroDeDocumento">
 					</div>
 				</div>
