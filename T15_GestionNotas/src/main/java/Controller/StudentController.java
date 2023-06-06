@@ -64,7 +64,7 @@ public class StudentController extends HttpServlet {
 		bean.setEmail(request.getParameter("email"));
 		bean.setCell_phone(request.getParameter("cell_phone"));
 		bean.setActivate(request.getParameter("activate"));
-		bean.setGrade_identifier(request.getParameter("grade_identifier"));
+		bean.setGrade_id(request.getParameter("grade_id"));
 		
 		 //Proceso
 		try {

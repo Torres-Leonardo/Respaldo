@@ -1,7 +1,7 @@
 package Modelos;
 
 public class ModeloUsers {
-	private Integer id;
+	private Integer identifier;
 	private String type_document;
 	private String number_document;
 	private String type_user;
@@ -15,11 +15,11 @@ public class ModeloUsers {
 	public ModeloUsers() {
 	}
 
-	public ModeloUsers(Integer id,  String type_document,  String number_document, String type_user, String names, String last_name,
+	public ModeloUsers(Integer identifier,  String type_document,  String number_document, String type_user, String names, String last_name,
 			 String email, String cell_phone, String activate)
 	{
 		super();
-		this.id = id;
+		this.identifier = identifier;
 		this.type_document = type_document;
 		this.number_document = number_document;
 		this.type_user = type_user;
@@ -30,12 +30,12 @@ public class ModeloUsers {
 		this.activate = activate;
 	}
 	
-	public Integer getId() {
-		return id;
+	public Integer getIdentifier() {
+		return identifier;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setIdentifier(Integer identifier) {
+		this.identifier = identifier;
 	}
 	
 	public String getNames() {
@@ -105,7 +105,7 @@ public class ModeloUsers {
 	
 	@Override
 	public String toString() {
-		String data = "[id: " + this.id;
+		String data = "[id: " + this.identifier;
 		data += ", type_document: " + this.type_document;
 		data += ", number_document: " + this.number_document;
 		data += ", type_user: " + this.type_user;
@@ -117,9 +117,14 @@ public class ModeloUsers {
 		return data;
 	}
 
-	public void setid(Integer id) {
+	public void setId(Integer id) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public Object getId() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

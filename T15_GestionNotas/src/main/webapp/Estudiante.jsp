@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -92,6 +91,7 @@
 						<td>${r.email}</td>
 						<td>${r.cell_phone}</td>
 						<td>${r.activate}</td>
+						<td>${r.grade_id}</td>
 					</tr>
 
 				</tbody>
@@ -140,7 +140,7 @@
 					<label for="formNumeroDeDocumento" class="col-sm-2 col-form-label">N°
 						de Documento</label>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" maxlength="15"
+						<input type="text" class="form-control" maxlength="9"
 							id="formNumeroDeDocumento">
 					</div>
 				</div>
@@ -155,6 +155,13 @@
 					<div class="col-sm-10">
 						<input type="text" class="form-control" maxlength="9"
 							id="formCelular">
+					</div>
+				</div>
+				<div class="row mb-3">
+					<label for="formGrade" class="col-sm-2 col-form-label">Grade</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" maxlength="1"
+							id="formGrade">
 					</div>
 				</div>
 				<div class="row mb-3">
@@ -182,10 +189,10 @@
 		const ACCION_NUEVO = "NUEVO";
 		const ACCION_EDITAR = "EDITAR";
 		const ACCION_ELIMINAR = "ELIMINAR";
-		
+
 		//Arreglo de registros
 		let arreglo = [];
-		
+
 		// Acceder a los controles
 		let btnBuscar = document.getElementById("btnBuscar");
 		let btnNuevo = document.getElementById("btnNuevo");
@@ -238,6 +245,7 @@
 			datos += "&cell_phone="
 					+ document.getElementById("formCelular").value;
 			datos += "&activate=" + document.getElementById("formActivo").value;
+			datos += "&grade_id=" + document.getElementById("formGrade").value;
 
 			//Formulario
 			// El envio con AJAX
@@ -297,9 +305,13 @@
 										+ "</td>";
 								detalleStudent += "<td>" + item.activate
 										+ "</td>";
+								detalleStudent += "<td>" + item.grade_id
+										+ "</td>";
 								detalleStudent += "<td>";
-								detalleStudent += "<A href='javascript: fnEditar(" + item.id + ")'>Editar</A>  ";
-								detalleStudent += "<A href='javascript: fnEliminar(" + item.id + ")'>Eliminar</A>";
+								detalleStudent += "<A href='javascript: fnEditar("
+										+ item.id + ")'>Editar</A>  ";
+								detalleStudent += "<A href='javascript: fnEliminar("
+										+ item.id + ")'>Eliminar</A>";
 								detalleStudent + "</td>";
 								detalleStudent += "</tr>";
 							});
@@ -313,29 +325,32 @@
 		}
 		// Función fnBtnDescargar
 		function fnBtnDescargar() {
-		    let tabla = document.getElementById("detalleStudent");
-		    let html = tabla.outerHTML;
-		    let url = 'data:text/html;charset=UTF-8,' + encodeURIComponent(html);
-		    let a = document.createElement('a');
-		    a.href = url;
-		    a.download = 'lista_alumnos.pdf';
-		    a.click();
+			let tabla = document.getElementById("detalleStudent");
+			let html = tabla.outerHTML;
+			let url = 'data:text/html;charset=UTF-8,'
+					+ encodeURIComponent(html);
+			let a = document.createElement('a');
+			a.href = url;
+			a.download = 'lista_alumnos.pdf';
+			a.click();
 		}
-		
-		function fnCargarForm(id){
-			arreglo.forEach(function(item) {
-				if (item.id == id){
-					document.getElementById("formId").value = item.id;
-					document.getElementById("formNombre").value = item.names;
-					document.getElementById("formApellidos").value = item.last_name;
-					document.getElementById("formTipoDeDocumento").value = item.type_document;
-					document.getElementById("formNumeroDeDocumento").value = item.number_document;
-					document.getElementById("formEmail").value = item.email;
-					document.getElementById("formCelular").value = item.cell_phone;
-					document.getElementById("formActivo").value = item.activate;
-					//break;
-				}
-			});
+
+		function fnCargarForm(id) {
+			arreglo
+					.forEach(function(item) {
+						if (item.id == id) {
+							document.getElementById("formId").value = item.id;
+							document.getElementById("formNombre").value = item.names;
+							document.getElementById("formApellidos").value = item.last_name;
+							document.getElementById("formTipoDeDocumento").value = item.type_document;
+							document.getElementById("formNumeroDeDocumento").value = item.number_document;
+							document.getElementById("formEmail").value = item.email;
+							document.getElementById("formCelular").value = item.cell_phone;
+							document.getElementById("formActivo").value = item.activate;
+							document.getElementById("formGrade").value = item.grade_id;
+							//break;
+						}
+					});
 		}
 	</script>
 </body>

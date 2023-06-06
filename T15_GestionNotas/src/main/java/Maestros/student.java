@@ -10,14 +10,15 @@ import java.util.List;
 import Acceso.AccesoDB;
 import Modelos.ModeloStudent;
 import Plantilla.RowMapper;
+import Plantilla.UtilService;
 import Plantilla.CRUD.CrudServiceSpec;
 
 
 public class student implements CrudServiceSpec<ModeloStudent>, RowMapper<ModeloStudent>{
 
-	private final String SQL_SELECT_BASE = "SELECT id, Names, Last_Name, Type_Document, Number_Document, Email, Cell_Phone, Activate, Grade_Identifier FROM student";
-	private final String SQL_INSERT = "SET IDENTITY_INSERT student ON INSERT INTO student(Identifier,Names,Last_Name,Type_Document,Number_Document,Email, Cell_Phone,Activate,Grade_Identifier) VALUES(?,?,?,?,?,?,?,?,?) SET IDENTITY_INSERT student OFF";
-	private final String SQL_UPDATE = "UPDATE student SET Names=?,Last_Name=?,Type_Document=?,Number_Document=?,Email=?,Cell_Phone=?,Activate=?,Grade_Identifier=? WHERE id=?";
+	private final String SQL_SELECT_BASE = "SELECT id, Names, Last_Name, Type_Document, Number_Document, Email, Cell_Phone, Activate, Grade_Id FROM student";
+	private final String SQL_INSERT = "SET IDENTITY_INSERT student ON INSERT INTO student(id,Names,Last_Name,Type_Document,Number_Document,Email, Cell_Phone,Activate,Grade_Id) VALUES(?,?,?,?,?,?,?,?,?) SET IDENTITY_INSERT student OFF";
+	private final String SQL_UPDATE = "UPDATE student SET Names=?,Last_Name=?,Type_Document=?,Number_Document=?,Email=?,Cell_Phone=?,Activate=?,Grade_Id=? WHERE id=?";
 	private final String SQL_DELETE = "DELETE FROM student WHERE id=?";
 	
 	/**
@@ -176,7 +177,7 @@ public class student implements CrudServiceSpec<ModeloStudent>, RowMapper<Modelo
 					pstm.setString(6, bean.getEmail());
 					pstm.setString(7, bean.getCell_phone());
 					pstm.setString(8, bean.getActivate());
-					pstm.setString(9, bean.getGrade_identifier());
+					pstm.setString(9, bean.getGrade_id());
 					pstm.executeUpdate();
 					pstm.close();
 					// Fin de Tx
@@ -220,7 +221,7 @@ public class student implements CrudServiceSpec<ModeloStudent>, RowMapper<Modelo
 					pstm.setString(5, bean.getEmail());
 					pstm.setString(6, bean.getCell_phone());
 					pstm.setString(7, bean.getActivate());
-					pstm.setString(8, bean.getGrade_identifier());
+					pstm.setString(8, bean.getGrade_id());
 					pstm.setInt(9, bean.getId());
 					filas = pstm.executeUpdate();
 					pstm.close();
@@ -289,6 +290,7 @@ public class student implements CrudServiceSpec<ModeloStudent>, RowMapper<Modelo
 		bean.setEmail(rs.getString("Email"));
 		bean.setCell_phone(rs.getString("Cell_Phone"));
 		bean.setActivate(rs.getString("Activate"));
+		bean.setGrade_id(rs.getString("Grade_id"));
 		return bean;
 	}
 }

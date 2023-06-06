@@ -9,13 +9,13 @@ public class ModeloStudent {
 	private String email;
 	private String cell_phone;
 	private String activate;
-	private String grade_identifier;
+	private String grade_id;
 	
 	public ModeloStudent() {
 	}
 
 	public ModeloStudent(Integer id, String names, String last_name, String type_document, String number_document,
-			String email, String cell_phone, String activate, String grade_identifier) {
+			String email, String cell_phone, String activate, String grade_id) {
 		super();
 		this.id = id;
 		this.names = names;
@@ -25,7 +25,7 @@ public class ModeloStudent {
 		this.email = email;
 		this.cell_phone = cell_phone;
 		this.activate = activate;
-		this.grade_identifier = grade_identifier;
+		this.grade_id = grade_id;
 	}
 
 	public Integer getId() {
@@ -101,15 +101,16 @@ public class ModeloStudent {
 		data += ", number_document: " + this.number_document;
 		data += ", email: " + this.email;
 		data += ", cell_phone: " + this.cell_phone;
-		data += ", activate: " + this.activate + "]";
+		data += ", activate: " + this.activate; 
+		data += ", grade_id: " + this.grade_id + "]";
 		return data;
 	}
 
-	public String getGrade_identifier() {
-		return grade_identifier;
+	public String getGrade_id() {
+		return grade_id;
 	}
 
-	public void setGrade_identifier(String grade_identifier) {
-		this.grade_identifier = grade_identifier;
+	public void setGrade_id(String grade_id) {
+		this.grade_id = grade_id;
 	}
 }
