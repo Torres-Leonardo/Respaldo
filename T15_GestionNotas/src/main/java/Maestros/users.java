@@ -15,7 +15,7 @@ import Plantilla.CRUD.CrudServiceSpec;
 public class users implements CrudServiceSpec<ModeloUsers>, RowMapper2<ModeloUsers> {
 
 	private final String SQL_SELECT_BASE = "SELECT id, type_document, number_document, type_user, names, last_name, email, cell_phone, activate  FROM users";
-	private final String SQL_INSERT = "INSERT INTO users(id, type_document, number_document, type_user, names, last_name, email, cell_phone, activate) VALUES(?,?,?,?,?,?,?,?,?)";
+	private final String SQL_INSERT = "SET IDENTITY_INSERT users ON INSERT INTO users(id, type_document, number_document, type_user, names, last_name, email, cell_phone, activate) VALUES(?,?,?,?,?,?,?,?,?)SET IDENTITY_INSERT student OFF";
 	private final String SQL_UPDATE = "UPDATE users SET  type_document=?, number_document=?, type_user=?, names=?, last_name=?, email=?, cell_phone=?, activate=? WHERE id=?";
 	private final String SQL_DELETE = "DELETE FROM users WHERE id=?";
 

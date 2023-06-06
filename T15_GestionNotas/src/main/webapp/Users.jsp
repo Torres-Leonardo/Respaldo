@@ -141,7 +141,7 @@
 					<label for="formNumeroDeDocumento" class="col-sm-2 col-form-label">N°
 						de Documento</label>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" maxlength="15"
+						<input type="text" class="form-control" maxlength="9"
 							id="formNumeroDeDocumento">
 					</div>
 				</div>
@@ -149,7 +149,7 @@
 					<label for="formTipousers" class="col-sm-2 col-form-label">Tipo
 						de Usuario</label>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" maxlength="15"
+						<input type="text" class="form-control" maxlength="1"
 							id="formTipousers">
 					</div>
 				</div>
